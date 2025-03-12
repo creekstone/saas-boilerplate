@@ -38,9 +38,15 @@ COPY /patches/ $APP_PATH/patches/
 COPY package.json pnpm*.yaml $APP_PATH/
 COPY $SRC_CORE_PATH/package.json $DEST_CORE_PATH/
 COPY $SRC_WORKERS_PATH/package.json $DEST_WORKERS_PATH/
+COPY packages/internal/tools/package.json $APP_PATH/packages/internal/tools/
+COPY packages/webapp-libs/webapp-emails/package.json $APP_PATH/packages/webapp-libs/webapp-emails/
+COPY packages/webapp-libs/webapp-api-client/package.json $APP_PATH/packages/webapp-libs/webapp-api-client/
+COPY packages/webapp-libs/webapp-core/package.json $APP_PATH/packages/webapp-libs/webapp-core/
+COPY packages/webapp-libs/webapp-finances/package.json $APP_PATH/packages/webapp-libs/webapp-finances/
+COPY packages/webapp-libs/webapp-notifications/package.json $APP_PATH/packages/webapp-libs/webapp-notifications/
 COPY tsconfig* $APP_PATH/
 COPY $SRC_CLI_PATH $DEST_CLI_PATH/
-RUN pnpm install --include-workspace-root --frozen-lockfile --filter=workers... --filter=cli...
+RUN pnpm install --include-workspace-root --no-frozen-lockfile --filter=workers... --filter=cli...
 
 COPY nx.json tsconfig* jest* babel* .eslintrc* .prettier* .eslintrc* $APP_PATH/
 COPY $SRC_CORE_PATH $DEST_CORE_PATH/
